@@ -10,6 +10,9 @@ spec:
     matchLabels:
       app: synergychat-crawler
   template:
+    volumes:
+      - name: cache-volume
+        emptyDir: {}
     metadata:
       labels:
         app: synergychat-crawler
@@ -17,6 +20,9 @@ spec:
       containers:
         - image: bootdotdev/synergychat-crawler:latest
           name: synergychat-crawler
+          volumeMounts:
+            - name: cache-volume
+              mountPath: /cache
           envFrom:
             - configMapRef:
                 name: synergychat-crawler-configmap
